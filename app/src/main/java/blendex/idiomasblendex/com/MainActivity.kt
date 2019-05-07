@@ -1,5 +1,6 @@
 package blendex.idiomasblendex.com
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -10,14 +11,28 @@ import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
+import com.jakewharton.rxbinding2.widget.RxTextView
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /** Email validation: */
+        val userObservable = RxTextView.textChanges(edit_login_user)
+            .map { text -> Patterns.emailPattern.matcher(text).matches() }
+
+        userObservable.distinctUntilChanged()
+            .map { a -> if (a) println("Verdadero") else println("Falso")  }
+            .subscribe {}
+
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
