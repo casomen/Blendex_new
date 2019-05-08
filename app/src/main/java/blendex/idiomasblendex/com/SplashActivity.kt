@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun scheduleSplashScreen() {
-        val splashScreenDuration = 2000L
+        val splashScreenDuration = 1000L
         Handler().postDelayed(
             {
                 // After the splash screen duration, route to the right activities

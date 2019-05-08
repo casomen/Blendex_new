@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -23,8 +23,8 @@
     </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
     <style name="ToolbarTheme" parent="@style/AppTheme">
         <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
@@ -32,11 +32,12 @@
         <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
         <item name="actionMenuTextColor">@color/EditTextColorBlack</item>
         <item name="background">@android:color/transparent</item>
+        <item name="colorPrimary">@android:color/holo_blue_light</item>
         <!-- Tints the input fields like checkboxes and text fields -->
         <item name="colorAccent">@color/EditTextColorBlack</item>
+        <item name="colorPrimaryDark">@android:color/holo_blue_light</item>
         <!-- Applies to views in their normal state. -->
         <item name="colorControlNormal">@color/EditTextColorBlack</item>
-        <item name="colorPrimary">@color/EditTextColorBlack</item>
         <item name="colorControlActivated">@android:color/transparent</item>
         <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
         <item name="colorControlHighlight">@android:color/transparent</item>
