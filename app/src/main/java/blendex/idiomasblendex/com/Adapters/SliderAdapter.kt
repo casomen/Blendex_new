@@ -37,7 +37,6 @@ class SliderAdapter(private val list:List<Slider>): RecyclerView.Adapter<SliderA
         return ListViewHolder(item)
     }
 
-
     class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView(slider: Slider){
