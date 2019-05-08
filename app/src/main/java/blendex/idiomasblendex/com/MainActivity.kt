@@ -2,6 +2,7 @@ package blendex.idiomasblendex.com
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -17,7 +18,9 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
+import android.view.View.GONE
 import blendex.idiomasblendex.com.Adapters.SliderAdapter
+import blendex.idiomasblendex.com.Objects.GlideApp
 import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.content_main.*
 import blendex.idiomasblendex.com.Objects.Slider
@@ -32,15 +35,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         rcViewHome.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
 
-        val list = listOf(Slider("Italiano","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg"),
-            Slider("Frances","https://static.idiomasblendex.com/HOME/clases+para+aprender+frances+en+medellin.jpg")
-        )
+        val list =
+        listOf(
+                Slider("Italiano","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg"),
+                Slider("Frances","https://static.idiomasblendex.com/HOME/clases+para+aprender+frances+en+medellin.jpg")
+                )
         val adapter = SliderAdapter(list)
         rcViewHome.adapter=adapter
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rcViewHome)
-
-
+        GlideApp.with(this)
+            .load("https://static.idiomasblendex.com/HOME/aprender+italiano.jpg")
+            .into(imagenLarga)
+        buy.setOnClickListener { toast("Click en buy") }
+        save.visibility = GONE
         //val i = rcViewHome.layoutManager.getPosition()
        /* /** Email validation: */
         val userObservable = RxTextView.textChanges(edit_login_user)
@@ -49,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         userObservable.distinctUntilChanged()
             .map { a -> if (a) println("Verdadero") else println("Falso")  }
             .subscribe {}*/
+
         plus.setOnClickListener {
             var i = snapHelper.findPosition(rcViewHome.layoutManager as LinearLayoutManager)
             val total =   list.size

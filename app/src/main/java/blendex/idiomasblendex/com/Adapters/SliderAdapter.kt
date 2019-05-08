@@ -21,6 +21,14 @@ import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.bumptech.glide.request.RequestOptions
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+import android.os.Build
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import com.bumptech.glide.request.target.SimpleTarget
+
+import android.annotation.SuppressLint
+import com.bumptech.glide.request.transition.Transition
+import java.io.File
 
 
 class SliderAdapter(private val list:List<Slider>): RecyclerView.Adapter<SliderAdapter.ListViewHolder>(){
@@ -33,7 +41,7 @@ class SliderAdapter(private val list:List<Slider>): RecyclerView.Adapter<SliderA
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, i: Int): ListViewHolder {
-        val item = LayoutInflater.from(parent.context).inflate(R.layout.adapter_pager, parent, false)
+        val item = LayoutInflater.from(parent.context).inflate(blendex.idiomasblendex.com.R.layout.adapter_pager, parent, false)
         return ListViewHolder(item)
     }
 
@@ -47,10 +55,12 @@ class SliderAdapter(private val list:List<Slider>): RecyclerView.Adapter<SliderA
                 GlideApp.with(view.context)
                     .load(urlImage)
                     .into(view.imageView)
-
-            view.nameTextView.text = nameImage
+                with(slider){
+                    view.nameTextView.text = nameImage
                 view.setOnClickListener {
                     view.context.toast("Click ${nameImage}")
+
+                }
                 }
             }
         }
