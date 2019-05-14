@@ -1,11 +1,7 @@
 package blendex.idiomasblendex.com
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -16,39 +12,42 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
-import android.view.Menu
-import android.view.View.GONE
 import blendex.idiomasblendex.com.Adapters.SliderAdapter
-import blendex.idiomasblendex.com.Objects.GlideApp
-import com.jakewharton.rxbinding2.widget.RxTextView
+import blendex.idiomasblendex.com.Adapters.miExperienciaAdapter
 import kotlinx.android.synthetic.main.content_main.*
 import blendex.idiomasblendex.com.Objects.Slider
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rcViewHome.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-
+        rcViewExperiencia.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         val list =
         listOf(
                 Slider("Italiano","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg"),
                 Slider("Frances","https://static.idiomasblendex.com/HOME/clases+para+aprender+frances+en+medellin.jpg")
                 )
+
+        val listExp =
+            listOf(
+                Slider("Italiano","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex23-1024x680.jpg"),
+                Slider("Frances","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex1-1024x643.jpg"),
+                Slider("1","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex4-683x1024.jpg")
+
+            )
+
         val adapter = SliderAdapter(list)
         rcViewHome.adapter=adapter
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rcViewHome)
-        GlideApp.with(this)
-            .load("https://static.idiomasblendex.com/HOME/aprender+italiano.jpg")
-            .into(imagenLarga)
-        buy.setOnClickListener { toast("Click en buy") }
-        save.visibility = GONE
+
+        val adapterExperiencia = miExperienciaAdapter(listExp)
+        rcViewExperiencia.adapter = adapterExperiencia
+
         //val i = rcViewHome.layoutManager.getPosition()
        /* /** Email validation: */
         val userObservable = RxTextView.textChanges(edit_login_user)
