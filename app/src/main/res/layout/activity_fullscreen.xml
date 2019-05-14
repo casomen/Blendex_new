@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@android:color/black"
@@ -10,6 +10,12 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
+
+    <com.github.chrisbanes.photoview.PhotoView android:id="@+id/fullscreen_content"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="match_parent"
+                                               android:keepScreenOn="true"
+                                               android:gravity="center"/>
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:fitsSystemWindows="true">
@@ -26,28 +32,19 @@
             <Button android:id="@+id/dummy_button"
                     style="?metaButtonBarButtonStyle"
                     android:layout_width="0dp"
+                    android:gravity="start|center_vertical"
+                    android:drawableLeft="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@android:color/white"
                     android:text="Atrás"/>
-            <Button android:id="@+id/shared"
-                    style="?metaButtonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Compartir"/>
         </LinearLayout>
 
 
 
 
     </FrameLayout>
-
-    <com.github.chrisbanes.photoview.PhotoView android:id="@+id/fullscreen_content"
-                                               android:layout_width="match_parent"
-                                               android:layout_height="match_parent"
-                                               android:keepScreenOn="true"
-                                               android:gravity="center"/>
-
 
     <FrameLayout android:layout_width="match_parent"
                  android:layout_gravity="center"
@@ -63,25 +60,27 @@
                       android:orientation="horizontal"
                       tools:ignore="UselessParent" >
 
-            <Button android:id="@+id/dummy_button2"
+            <Button android:id="@+id/back"
                     style="?metaButtonBarButtonStyle"
                     android:layout_width="0dp"
                     android:gravity="start"
+                    android:drawableLeft="@drawable/ic_keyboard_arrow_left_black_24dp"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
                     android:layout_weight=".2"
-                    android:text="Atrás"/>
+                    android:text=""/>
             <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" android:layout_weight=".6"/>
-            <Button android:id="@+id/shared2"
+            <Button android:id="@+id/next"
                     style="?metaButtonBarButtonStyle"
                     android:layout_width="0dp"
                     android:gravity="end"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
                     android:layout_weight=".2"
-                    android:text="Siguiente"/>
+                    android:text=""/>
 
 
         </LinearLayout>

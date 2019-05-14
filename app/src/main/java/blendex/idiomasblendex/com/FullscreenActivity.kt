@@ -3,6 +3,7 @@ package blendex.idiomasblendex.com
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import blendex.idiomasblendex.com.Objects.GlideApp
 import com.bumptech.glide.Glide
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_fullscreen.*
  */
 class FullscreenActivity : AppCompatActivity() {
     private val mHideHandler = Handler()
+    var position = 0
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
 
@@ -63,9 +65,28 @@ class FullscreenActivity : AppCompatActivity() {
 
         dummy_button.setOnTouchListener(mDelayHideTouchListener)
         val resName = intent.getStringExtra("res_name")
+        position = intent.getStringExtra("p").toInt()
+        val Lista = intent.getStringArrayListExtra("Lista")
+
         GlideApp.with(this)
             .load(resName)
             .into(fullscreen_content)
+
+        back.setOnClickListener {
+            if (position>=1)
+            position -=1
+            GlideApp.with(this).load(Lista[position]).into(fullscreen_content)
+        }
+        next.setOnClickListener {
+            if (position<Lista.size-1)
+                position +=1
+            GlideApp.with(this).load(Lista[position]).into(fullscreen_content)
+        }
+
+        dummy_button.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

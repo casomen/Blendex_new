@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.widget.ImageView
 import blendex.idiomasblendex.com.Adapters.SliderAdapter
 import blendex.idiomasblendex.com.Adapters.miExperienciaAdapter
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import blendex.idiomasblendex.com.Objects.Slider
 import kotlinx.android.synthetic.main.activity_fullscreen.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,14 +53,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         snapHelper.attachToRecyclerView(rcViewHome)
 
         val adapterExperiencia = miExperienciaAdapter(listExp)
-        adapterExperiencia.setItemClickListener { view, position ->   val intent=
-            Intent(this,FullscreenActivity::class.java)
+        adapterExperiencia.setItemClickListener { view, position ->
+            val intent= Intent(this,FullscreenActivity::class.java)
             val options= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,view.transitionName).toBundle()
             } else {
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,"image").toBundle()
             }
+
             intent.putExtra("res_name",listExp[position].urlImage)
+            intent.putExtra("p",position.toString())
+            val listImage: ArrayList<String> = ArrayList()
+            for(slider in listExp){
+                listImage.add(slider.urlImage)
+            }
+            intent.putStringArrayListExtra("Lista", listImage)
             startActivity(intent,options)
         }
         rcViewExperiencia.adapter = adapterExperiencia
