@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@android:color/black"
+             tools:context=".FullscreenActivity">
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:fitsSystemWindows="true">
+
+        <LinearLayout android:id="@+id/fullscreen_content_controls"
+                      style="?metaButtonBarStyle"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="start|center_horizontal"
+                      android:background="@color/black_overlay"
+                      android:orientation="horizontal"
+                      tools:ignore="UselessParent" android:gravity="start">
+
+            <Button android:id="@+id/dummy_button"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Atrás"/>
+            <Button android:id="@+id/shared"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Compartir"/>
+        </LinearLayout>
+
+
+
+
+    </FrameLayout>
+
+    <com.github.chrisbanes.photoview.PhotoView android:id="@+id/fullscreen_content"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="match_parent"
+                                               android:keepScreenOn="true"
+                                               android:gravity="center"/>
+
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_gravity="center"
+                 android:layout_height="match_parent"
+                 android:fitsSystemWindows="true">
+        <LinearLayout android:id="@+id/fullscreen_content_controls2"
+                      style="?metaButtonBarStyle"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="@android:color/transparent"
+                      android:layout_gravity="center"
+                      android:weightSum="1"
+                      android:orientation="horizontal"
+                      tools:ignore="UselessParent" >
+
+            <Button android:id="@+id/dummy_button2"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:gravity="start"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:text="Atrás"/>
+            <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight=".6"/>
+            <Button android:id="@+id/shared2"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:gravity="end"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:text="Siguiente"/>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

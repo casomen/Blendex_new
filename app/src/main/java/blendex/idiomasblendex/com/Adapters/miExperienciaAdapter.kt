@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.item_image_snap.view.*
 import org.jetbrains.anko.toast
 
 class miExperienciaAdapter(private val list:List<Slider>): RecyclerView.Adapter<miExperienciaAdapter.ListViewHolder>(){
+    private var itemClickListener: ((view: View, position: Int) -> Unit)? = null
 
     class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view)
     {
@@ -43,6 +44,12 @@ class miExperienciaAdapter(private val list:List<Slider>): RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ListViewHolder, position: Int)
     {
         holder.bindView(list[position])
+        holder.view.setOnClickListener {
+            itemClickListener?.invoke(holder.itemView.imageSnap, holder.layoutPosition)
+        }
     }
 
+    fun setItemClickListener(listener: (view: View, position: Int) -> Unit) {
+        itemClickListener = listener
+    }
 }

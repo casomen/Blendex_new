@@ -1,21 +1,26 @@
 package blendex.idiomasblendex.com
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.widget.ImageView
 import blendex.idiomasblendex.com.Adapters.SliderAdapter
 import blendex.idiomasblendex.com.Adapters.miExperienciaAdapter
 import kotlinx.android.synthetic.main.content_main.*
 import blendex.idiomasblendex.com.Objects.Slider
+import kotlinx.android.synthetic.main.activity_fullscreen.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +51,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         snapHelper.attachToRecyclerView(rcViewHome)
 
         val adapterExperiencia = miExperienciaAdapter(listExp)
+        adapterExperiencia.setItemClickListener { view, position ->   val intent=
+            Intent(this,FullscreenActivity::class.java)
+            val options= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,view.transitionName).toBundle()
+            } else {
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this,view,"image").toBundle()
+            }
+            intent.putExtra("res_name",listExp[position].urlImage)
+            startActivity(intent,options)
+        }
         rcViewExperiencia.adapter = adapterExperiencia
 
         //val i = rcViewHome.layoutManager.getPosition()
