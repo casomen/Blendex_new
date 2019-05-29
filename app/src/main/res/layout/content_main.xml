@@ -5,18 +5,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginTop="40dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_main"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rcViewHome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:scrollbars="none" />
+            android:scrollbars="none"/>
 
     <TextView
             android:layout_width="match_parent"
@@ -32,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:scrollbars="none" />
+            android:scrollbars="none"/>
 
 
     <TextView
@@ -44,8 +43,56 @@
             android:text="Estudia y Diviertete"
             android:textSize="16sp"/>
 
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcViewPractic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scrollbars="none"/>
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="200dp"
-    android:background="@mipmap/ic_launcher"
-    />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:text="Comunicate con nosotros."
+            android:textSize="16sp"/>
+
+<LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="90dp">
+    <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:onClick="openFacebook"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/facebook"
+            android:layout_weight=".3"/>
+    <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:onClick="openInstagram"
+            android:src="@drawable/instagram"
+            android:layout_weight=".3"/>
+</LinearLayout>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_local_phone_black_24dp"
+            android:gravity="center"
+            android:adjustViewBounds="true"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textColor="@android:color/black"
+            android:background="@android:color/transparent"
+            android:textStyle="bold"
+            android:text="540 50 00"
+            android:onClick="PhoneCall"
+            android:textSize="30sp" />
 </LinearLayout>
