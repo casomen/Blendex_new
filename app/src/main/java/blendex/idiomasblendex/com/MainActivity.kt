@@ -193,8 +193,8 @@ class MainActivity : AppCompatActivity(){
 
     fun Register(v:View){
         toast("Master")
-        
-
+        val i = Intent(this,RegisterActivity::class.java)
+        startActivity(i)
     }
 
     fun PackageManager.isAppInstalled(packageName: String): Boolean =

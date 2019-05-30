@@ -21,4 +21,5 @@
     <string name="title_activity_full_image_">Full_image_Activity</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="shr_hint_username">Documento de identidad</string>
 </resources>
