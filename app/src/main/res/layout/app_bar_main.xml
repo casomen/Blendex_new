@@ -10,17 +10,32 @@
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_marginTop="-5dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:popupTheme="@style/ToolbarTheme" tools:targetApi="lollipop">
+
+        <Button
+                android:id="@+id/user"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="start"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/ic_account_circle_black_24dp"
+                android:gravity="start"
+                android:onClick="Register"
+                android:text=""
+                android:textSize="30sp" tools:ignore="RtlSymmetry"/>
+
         <Button
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="12dp"
                 android:layout_marginEnd="10dp"
                 android:textSize="14sp"
                 android:background="@android:color/transparent"
@@ -31,18 +46,5 @@
 
 
     <include layout="@layout/content_main" android:id="@+id/include"/>
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="0">
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:layout_alignParentBottom="true"
-        />
-    </RelativeLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>
