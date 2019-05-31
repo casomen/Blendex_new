@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, y, monthOfYear, dayOfMonth ->
+        val dpd = DatePickerDialog(this,R.style.ThemeOverlay_MaterialComponents_Dialog_Alert_custom,DatePickerDialog.OnDateSetListener { view, y, monthOfYear, dayOfMonth ->
             // Display Selected date in Toast
             editText.setText("$dayOfMonth/${monthOfYear + 1}/$y")
             //Toast.makeText(this, """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG).show()

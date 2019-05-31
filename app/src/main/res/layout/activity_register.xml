@@ -46,6 +46,9 @@
 
     <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@android:color/black"
+            app:boxStrokeWidth="1dp"
             android:layout_height="wrap_content">
 
         <EditText
@@ -53,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/shr_hint_username"
-                android:inputType="text"
+                android:inputType="number"
                 android:singleLine="true" android:importantForAutofill="no" tools:targetApi="o"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -61,17 +64,26 @@
         <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@android:color/black"
+            android:layout_height="wrap_content">
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date"
+            android:focusable="false"
+            style="@style/ThemeOverlay.MaterialComponents.Dialog.Alert.custom"
+            android:hint="Mi fecha de nacimiento"
+            android:textColor="@android:color/black"
             android:onClick="clickDataPicker"
-            android:ems="10"
             android:drawableEnd="@drawable/ic_date_range_black_24dp"
             android:id="@+id/editText"/>
-
+</android.support.design.widget.TextInputLayout>
              <Button
-                android:text="Button"
+                android:text="Soy estudiante"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/button"/>
 
