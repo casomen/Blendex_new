@@ -174,7 +174,6 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }else{
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/idiomasblendex/")))
-
         }
     }
 
@@ -192,7 +191,6 @@ class MainActivity : AppCompatActivity(){
     }
 
     fun Register(v:View){
-        toast("Master")
         val i = Intent(this,RegisterActivity::class.java)
         startActivity(i)
     }
