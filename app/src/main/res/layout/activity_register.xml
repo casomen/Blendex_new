@@ -52,7 +52,7 @@
             android:layout_height="wrap_content">
 
         <EditText
-                android:id="@+id/edit_text_name"
+                android:id="@+id/editTextID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/shr_hint_username"
@@ -80,12 +80,14 @@
             android:textColor="@android:color/black"
             android:onClick="clickDataPicker"
             android:drawableEnd="@drawable/ic_date_range_black_24dp"
-            android:id="@+id/editText"/>
+            android:id="@+id/editTextDATE"/>
 </android.support.design.widget.TextInputLayout>
+
              <Button
                 android:text="Soy estudiante"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/button"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/btnRegister"/>
 
 </LinearLayout>
 

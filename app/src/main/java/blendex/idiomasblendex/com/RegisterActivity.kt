@@ -16,14 +16,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register.*
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
     private var mCompositeDisposable: CompositeDisposable? = null
+    private val BASE_URL = "https://app.idiomasblendex.com/api/"
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -38,7 +45,12 @@ class RegisterActivity : AppCompatActivity() {
 
         mCompositeDisposable = CompositeDisposable()
 
-        register()
+
+
+        btnRegister.setOnClickListener {
+            val format = SimpleDateFormat("dd/MM/yyy")
+            register(editTextID.text.toString(),editTextDATE.text.toString())
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -57,31 +69,60 @@ class RegisterActivity : AppCompatActivity() {
 
         val dpd = DatePickerDialog(this,R.style.ThemeOverlay_MaterialComponents_Dialog_Alert_custom,DatePickerDialog.OnDateSetListener { view, y, monthOfYear, dayOfMonth ->
             // Display Selected date in Toast
-            editText.setText("$dayOfMonth/${monthOfYear + 1}/$y")
+            editTextDATE.setText("$dayOfMonth/${monthOfYear + 1}/$y")
             //Toast.makeText(this, """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG).show()
         }, year, month, day)
         dpd.show()
     }
 
-    fun register(){
-        val BASE_URL = "https://app.idiomasblendex.com/api/"
-        val requestInterface = Retrofit.Builder()
+    @Suppress("UNUSED_PARAMETER")
+    fun register(Id:String, BirthDate:String){
+
+        toast("hola $Id como $BirthDate")
+
+        /*val requestInterface = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(RequestRetrofit::class.java)
+            .build().create(RequestRetrofit::class.java)*/
 
-        mCompositeDisposable?.add(requestInterface.getUser()
+      /*  mCompositeDisposable?.add(requestInterface.getUser(Id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe(this::handleResponse, this::handleError))
+            .subscribe(this::handleResponse, this::handleError))*/
+
+        val requestInterface = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().create(RequestRetrofit::class.java)
+        val call = requestInterface.getUser(Id)
+        call.enqueue(object : retrofit2.Callback<Student>{
+            override fun onFailure(call: Call<Student>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<Student>, response: Response<Student>) {
+                if(response.isSuccessful){
+                    val s = response.body()
+                    s.let {
+                        if (s != null) {
+                            toast("nombre:${s.nombres} apellidos:${s.apellidos}-${s.ListProgramas.get(0).programa.programa} ")
+                        }
+
+                    }
+
+                }
+            }
+
+        })
+
     }
 
     private fun handleResponse(student: Student) {
                 toast("s"+student.tipoDocumento)
                 Log.w("caso",student.nombres)
 
-        for (o in student.o){
+        for (o in student.ListProgramas){
             Log.w("caso",o.programa.programa)
             Log.w("caso",o.programa.horario)
             Log.w("caso",o.programa.fechaVigenciaFinal.date)

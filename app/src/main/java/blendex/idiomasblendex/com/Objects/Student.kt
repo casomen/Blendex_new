@@ -3,7 +3,7 @@ package blendex.idiomasblendex.com.Objects
 import com.google.gson.annotations.SerializedName
 
 data class Student(@SerializedName("0")
-                   val o : List<Item>,
+                   val ListProgramas : List<Item>,
                    @SerializedName("Apellidos")
                    val apellidos: String = "",
                    @SerializedName("Fecha_Nacimiento")
