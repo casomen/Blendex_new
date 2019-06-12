@@ -69,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val dpd = DatePickerDialog(this,R.style.ThemeOverlay_MaterialComponents_Dialog_Alert_custom,DatePickerDialog.OnDateSetListener { view, y, monthOfYear, dayOfMonth ->
             // Display Selected date in Toast
-            editTextDATE.setText("$dayOfMonth/${monthOfYear + 1}/$y")
+            editTextDATE.setText("${monthOfYear + 1}/$dayOfMonth/$y")
             //Toast.makeText(this, """$dayOfMonth - ${monthOfYear + 1} - $year""", Toast.LENGTH_LONG).show()
         }, year, month, day)
         dpd.show()
@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(RequestRetrofit::class.java)
-        val call = requestInterface.getUser(Id)
+        val call = requestInterface.getUser(Id,BirthDate)
         call.enqueue(object : retrofit2.Callback<Student>{
             override fun onFailure(call: Call<Student>, t: Throwable) {
 
@@ -106,7 +106,13 @@ class RegisterActivity : AppCompatActivity() {
                     val s = response.body()
                     s.let {
                         if (s != null) {
-                            toast("nombre:${s.nombres} apellidos:${s.apellidos}-${s.ListProgramas.get(0).programa.programa} ")
+                            toast("nombre:${s.nombres} apellidos:${s.apellidos}-" +
+                                    "${s.ListProgramas.get(0).programa.programa} - ${s.ListProgramas.get(0).programa.estado} ")
+
+                            for (i in s.ListProgramas) {
+                                Log.w("CASO","${i.programa.programa} - ${i.programa.estado} ")
+                            }
+
                         }
 
                     }

@@ -15,7 +15,7 @@ interface RequestRetrofit {
     fun getTodas() : Observable<List<Word>>
 
     @GET("Student/queryStudent.php")
-    fun getUser(@Query("id") id: String) : Call<Student>
+    fun getUser(@Query("id") id: String,@Query("fecha") fecha:String) : Call<Student>
 
 
 
