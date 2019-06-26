@@ -1,6 +1,6 @@
 package blendex.idiomasblendex.com.Adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import blendex.idiomasblendex.com.Objects.GlideApp
 import blendex.idiomasblendex.com.R
 import kotlinx.android.synthetic.main.adapter_pager.view.*
 
-class GamesAdapter (private val list: List<Game>):RecyclerView.Adapter<GamesAdapter.ListViewHolder>(){
+class GamesAdapter (private val list: List<Game>): RecyclerView.Adapter<GamesAdapter.ListViewHolder>(){
 
     class ListViewHolder(val view: View): RecyclerView.ViewHolder(view){
         fun bindView(game:Game){

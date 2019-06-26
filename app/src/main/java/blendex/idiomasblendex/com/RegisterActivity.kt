@@ -2,20 +2,29 @@ package blendex.idiomasblendex.com
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.os.AsyncTask
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v7.widget.Toolbar
+import android.os.Handler
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.room.Room
+import blendex.idiomasblendex.com.Adapters.DbThread
 import blendex.idiomasblendex.com.Interfaces.RequestRetrofit
 import blendex.idiomasblendex.com.Objects.Student
+import blendex.idiomasblendex.com.db.objects.Student_db
+import blendex.idiomasblendex.com.db.AppDatabase
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -29,6 +38,10 @@ import java.util.*
 class RegisterActivity : AppCompatActivity() {
     private var mCompositeDisposable: CompositeDisposable? = null
     private val BASE_URL = "https://app.idiomasblendex.com/api/"
+    private val TAGCASO = "CASOMEN"
+    //private var mDbThread: DbThread? = null
+   // private val mUiHandler = Handler()
+    private var db: AppDatabase? = null
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +55,27 @@ class RegisterActivity : AppCompatActivity() {
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
-
         mCompositeDisposable = CompositeDisposable()
-
-
+        db = AppDatabase.getInstance(this)
 
         btnRegister.setOnClickListener {
             val format = SimpleDateFormat("dd/MM/yyy")
             register(editTextID.text.toString(),editTextDATE.text.toString())
         }
+        /*doAsync {
+
+            //val database = AppDatabase.getInstance(RegisterActivity())
+            val customers = db?.studentDao()?.getAll()
+
+            uiThread {
+                if (customers != null) {
+                    for (i in customers){
+                        Log.w("CASO",i.nombres)
+                    }
+                }
+            }
+        }*/
+        GetDataFromDb(this).execute()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -106,6 +131,10 @@ class RegisterActivity : AppCompatActivity() {
                     val s = response.body()
                     s.let {
                         if (s != null) {
+                            //añadir
+                            val std = Student_db(s.apellidos,s.fechaNacimiento,s.identificacion,s.telefonoAlterno,s.nombres,s.telefonoPpal,s.tipoDocumento)
+                            InsertTask(this@RegisterActivity,std).execute()
+                            //save(std)
                             toast("nombre:${s.nombres} apellidos:${s.apellidos}-" +
                                     "${s.ListProgramas.get(0).programa.programa} - ${s.ListProgramas.get(0).programa.estado} ")
 
@@ -141,4 +170,86 @@ class RegisterActivity : AppCompatActivity() {
         Log.d("caso", error.localizedMessage)
         Toast.makeText(this, "Error ${error.localizedMessage}", Toast.LENGTH_SHORT).show()
     }
+
+
+
+
+
+    /*class LoadTask(@SuppressLint("StaticFieldLeak") var context: RegisterActivity) : AsyncTask<Void, Void, List<Student>>() {
+        override fun doInBackground(vararg params: Void?): List<Student>? {
+            val mDb = AppDatabase
+            return mDb.getAppDataBase(context)?.studentDao()?.getAllStudents()
+        }
+        override fun onPostExecute(studentList: List<Student>) {
+            if (studentList.isNotEmpty()) {
+                for (i in studentList) {
+                    Log.w("caso",i.nombres)
+
+                }
+            }
+        }
+    }*/
+
+
+   /* private fun fetchDataFromDb() {
+        val task = Runnable {
+            val listStudent =
+                mDb?.studentDao()?.getAllStudents()
+            mUiHandler.post {
+                if (listStudent == null || listStudent.isEmpty()) {
+                    toast("No data in cache..!!")
+                } else {
+                    Log.w("CASO", listStudent[0].nombres)
+                }
+            }
+        }
+        //mDbThread!!.postTask(task)
+    }*/
+
+
+
+   /* private fun save(student: Student_db) {
+        doAsync {
+            AppDatabase.getInstance(RegisterActivity())?.studentDao()?.insert(student)
+        }
+    }*/
+
+    private class InsertTask(var context:RegisterActivity, var student: Student_db) : AsyncTask<Void, Void, Boolean>() {
+        override fun doInBackground(vararg params: Void?): Boolean {
+            context.db!!.studentDao().insert(student)
+            return true
+        }
+        override fun onPostExecute(bool: Boolean?) {
+            if (bool!!) {
+                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private class GetDataFromDb(var context: RegisterActivity) : AsyncTask<Void, Void, List<Student_db>>() {
+        override fun doInBackground(vararg params: Void?): List<Student_db> {
+            return context.db!!.studentDao().getAll()
+        }
+        override fun onPostExecute(chapterList: List<Student_db>?) {
+            if (chapterList!!.isNotEmpty()) {
+                Log.w("caso",chapterList[0].nombres)
+            }
+        }
+    }
+
+   /* private fun Read() {
+        doAsync {
+            val students = getAppDataBase(this@RegisterActivity)?.studentDao()?.getAll()
+
+            uiThread {
+                if (students != null) {
+                    for (i in students){
+                        Log.w("CASO",i.nombres)
+                    }
+                }
+            }
+        }
+    }*/
+
+
 }
