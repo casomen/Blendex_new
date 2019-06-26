@@ -1,15 +1,9 @@
 package blendex.idiomasblendex.com.db.daos
 
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import blendex.idiomasblendex.com.db.objects.Student_db
 
-/**
- * Created by axier on 7/2/18.
- */
 
 @Dao
 interface studentDao {
@@ -20,7 +14,7 @@ interface studentDao {
     @Insert
     fun insertAll(students: List<Student_db>)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(student: Student_db)
 
     @Delete

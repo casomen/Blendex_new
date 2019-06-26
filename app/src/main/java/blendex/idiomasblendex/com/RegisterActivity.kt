@@ -15,16 +15,18 @@ import android.widget.Toast
 import androidx.room.Room
 import blendex.idiomasblendex.com.Adapters.DbThread
 import blendex.idiomasblendex.com.Interfaces.RequestRetrofit
+import blendex.idiomasblendex.com.Objects.Programa
 import blendex.idiomasblendex.com.Objects.Student
 import blendex.idiomasblendex.com.db.objects.Student_db
 import blendex.idiomasblendex.com.db.AppDatabase
+import blendex.idiomasblendex.com.db.objects.Programa_db
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -38,7 +40,6 @@ import java.util.*
 class RegisterActivity : AppCompatActivity() {
     private var mCompositeDisposable: CompositeDisposable? = null
     private val BASE_URL = "https://app.idiomasblendex.com/api/"
-    private val TAGCASO = "CASOMEN"
     //private var mDbThread: DbThread? = null
    // private val mUiHandler = Handler()
     private var db: AppDatabase? = null
@@ -56,26 +57,23 @@ class RegisterActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
         mCompositeDisposable = CompositeDisposable()
-        db = AppDatabase.getInstance(this)
-
+        db = AppDatabase.getInstance(this)!!
         btnRegister.setOnClickListener {
-            val format = SimpleDateFormat("dd/MM/yyy")
+            //val format = SimpleDateFormat("dd/MM/yyy")
             register(editTextID.text.toString(),editTextDATE.text.toString())
         }
-        /*doAsync {
 
-            //val database = AppDatabase.getInstance(RegisterActivity())
-            val customers = db?.studentDao()?.getAll()
 
+
+        doAsync {
             uiThread {
-                if (customers != null) {
-                    for (i in customers){
-                        Log.w("CASO",i.nombres)
-                    }
-                }
+                alert("Hi, I'm Roy", "Have you tried turning it off and on again?") {
+                    yesButton { toast("Oh…") }
+                    noButton {}
+                }.show()
             }
-        }*/
-        GetDataFromDb(this).execute()
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -83,6 +81,12 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onStart() {
+        super.onStart()
+        GetDataFromDb(this).execute()
+        GetPrograms(this).execute()
+
+    }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.N)
@@ -140,6 +144,13 @@ class RegisterActivity : AppCompatActivity() {
 
                             for (i in s.ListProgramas) {
                                 Log.w("CASO","${i.programa.programa} - ${i.programa.estado} ")
+                                Log.w("CASO","${i.programa.fechaVigenciaInicial} - ${i.programa.fechaVigenciaFinal} ")
+                                val programU = Programa_db(i.programa.fechaVigenciaFinal.date,
+                                    i.programa.contrato,
+                                    i.programa.programa,
+                                    i.programa.fechaVigenciaInicial.date,
+                                    i.programa.estado)
+                                InsertPrograms(this@RegisterActivity,programU).execute()
                             }
 
                         }
@@ -165,54 +176,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun handleError(error: Throwable) {
-
         Log.d("caso", error.message)
         Log.d("caso", error.localizedMessage)
         Toast.makeText(this, "Error ${error.localizedMessage}", Toast.LENGTH_SHORT).show()
     }
-
-
-
-
-
-    /*class LoadTask(@SuppressLint("StaticFieldLeak") var context: RegisterActivity) : AsyncTask<Void, Void, List<Student>>() {
-        override fun doInBackground(vararg params: Void?): List<Student>? {
-            val mDb = AppDatabase
-            return mDb.getAppDataBase(context)?.studentDao()?.getAllStudents()
-        }
-        override fun onPostExecute(studentList: List<Student>) {
-            if (studentList.isNotEmpty()) {
-                for (i in studentList) {
-                    Log.w("caso",i.nombres)
-
-                }
-            }
-        }
-    }*/
-
-
-   /* private fun fetchDataFromDb() {
-        val task = Runnable {
-            val listStudent =
-                mDb?.studentDao()?.getAllStudents()
-            mUiHandler.post {
-                if (listStudent == null || listStudent.isEmpty()) {
-                    toast("No data in cache..!!")
-                } else {
-                    Log.w("CASO", listStudent[0].nombres)
-                }
-            }
-        }
-        //mDbThread!!.postTask(task)
-    }*/
-
-
-
-   /* private fun save(student: Student_db) {
-        doAsync {
-            AppDatabase.getInstance(RegisterActivity())?.studentDao()?.insert(student)
-        }
-    }*/
 
     private class InsertTask(var context:RegisterActivity, var student: Student_db) : AsyncTask<Void, Void, Boolean>() {
         override fun doInBackground(vararg params: Void?): Boolean {
@@ -226,6 +193,20 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private class InsertPrograms(var context:RegisterActivity, var programa: Programa_db) : AsyncTask<Void, Void, Boolean>() {
+        override fun doInBackground(vararg params: Void?): Boolean {
+            context.db!!.programDao().insert(programa)
+            return true
+        }
+        override fun onPostExecute(bool: Boolean?) {
+            if (bool!!) {
+                Toast.makeText(context, "Added Program to Database", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+
+
     private class GetDataFromDb(var context: RegisterActivity) : AsyncTask<Void, Void, List<Student_db>>() {
         override fun doInBackground(vararg params: Void?): List<Student_db> {
             return context.db!!.studentDao().getAll()
@@ -237,19 +218,19 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-   /* private fun Read() {
-        doAsync {
-            val students = getAppDataBase(this@RegisterActivity)?.studentDao()?.getAll()
-
-            uiThread {
-                if (students != null) {
-                    for (i in students){
-                        Log.w("CASO",i.nombres)
-                    }
+    private class GetPrograms(var context: RegisterActivity) : AsyncTask<Void, Void, List<Programa_db>>() {
+        override fun doInBackground(vararg params: Void?): List<Programa_db> {
+            return context.db!!.programDao().getAll()
+        }
+        override fun onPostExecute(result: List<Programa_db>?) {
+            if (result!!.isNotEmpty()) {
+                Log.w("caso",result[0].contrato)
+                for (word in result) {
+                    Log.w("CASO","${word.programas} ")
                 }
             }
         }
-    }*/
+    }
 
 
 }
