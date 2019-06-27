@@ -38,7 +38,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
-    private var mCompositeDisposable: CompositeDisposable? = null
+   // private var mCompositeDisposable: CompositeDisposable? = null
     private val BASE_URL = "https://app.idiomasblendex.com/api/"
     //private var mDbThread: DbThread? = null
    // private val mUiHandler = Handler()
@@ -56,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
-        mCompositeDisposable = CompositeDisposable()
+        //mCompositeDisposable = CompositeDisposable()
         db = AppDatabase.getInstance(this)!!
         btnRegister.setOnClickListener {
             //val format = SimpleDateFormat("dd/MM/yyy")
