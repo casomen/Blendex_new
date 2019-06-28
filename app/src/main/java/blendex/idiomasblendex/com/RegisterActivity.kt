@@ -6,35 +6,22 @@ import android.os.AsyncTask
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.room.Room
-import blendex.idiomasblendex.com.Adapters.DbThread
 import blendex.idiomasblendex.com.Interfaces.RequestRetrofit
-import blendex.idiomasblendex.com.Objects.Programa
 import blendex.idiomasblendex.com.Objects.Student
 import blendex.idiomasblendex.com.db.objects.Student_db
 import blendex.idiomasblendex.com.db.AppDatabase
 import blendex.idiomasblendex.com.db.objects.Programa_db
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {

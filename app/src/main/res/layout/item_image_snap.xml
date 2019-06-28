@@ -14,6 +14,7 @@
     <ImageView
             android:id="@+id/imageSnap"
             android:scaleType="fitCenter"
+            android:src="@drawable/cat_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:transitionName="image" tools:targetApi="lollipop"/>
