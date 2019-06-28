@@ -1,18 +1,23 @@
 package blendex.idiomasblendex.com
 
-import android.content.Context
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.os.AsyncTask
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
-import androidx.appcompat.app.AlertDialog
+import android.widget.GridLayout.VERTICAL
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import blendex.idiomasblendex.com.Adapters.ModuloAdapter
+import blendex.idiomasblendex.com.Adapters.SliderAdapter
+import blendex.idiomasblendex.com.Objects.Modulo
+import blendex.idiomasblendex.com.Objects.Slider
 import blendex.idiomasblendex.com.db.AppDatabase
 import blendex.idiomasblendex.com.db.objects.Programa_db
 import kotlinx.android.synthetic.main.activity_logged.*
-import org.jetbrains.anko.AlertBuilder
-import org.jetbrains.anko.AlertBuilderFactory
+import kotlinx.android.synthetic.main.content_main.*
+
 import org.jetbrains.anko.selector
 
 class LoggedActivity : AppCompatActivity() {
@@ -20,6 +25,7 @@ class LoggedActivity : AppCompatActivity() {
     private var db: AppDatabase? = null
     var ListPrograms = listOf<Programa_db>()
 
+    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logged)
@@ -41,6 +47,38 @@ class LoggedActivity : AppCompatActivity() {
                 currentProgram.text = p[i]
             }
         }
+
+
+        val list =
+            listOf(
+                Slider("Italiano","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg","https://idiomasblendex.com/italiano/","#f6b7fe"),
+                Slider("Frances","https://static.idiomasblendex.com/HOME/clases+para+aprender+frances+en+medellin.jpg","https://idiomasblendex.com/frances/","#f7d20a")
+            )
+
+        val list2 =
+            listOf(
+                Modulo("Grammar","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg"),
+                Modulo("Vocabulary","https://static.idiomasblendex.com/HOME/clases+para+aprender+frances+en+medellin.jpg"),
+                        Modulo("Games","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg"),
+        Modulo("Tutorias","https://static.idiomasblendex.com/HOME/clases+para+aprender+frances+en+medellin.jpg")
+            )
+
+        val adapter = SliderAdapter(list,applicationContext)
+        rcViewMihome.adapter=adapter
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(rcViewHome)
+
+        rcViewMihome.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+        rcViewModulo.layoutManager = GridLayoutManager(this,2,VERTICAL,false)
+        val adapter2 = ModuloAdapter(list2,applicationContext)
+        rcViewModulo.adapter=adapter2
+
+
     }
 
 
