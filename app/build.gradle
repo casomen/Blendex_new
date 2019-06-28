@@ -35,6 +35,9 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -82,6 +85,10 @@ dependencies {
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
+
+    implementation 'com.airbnb.android:epoxy:3.6.0'
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt 'com.airbnb.android:epoxy-processor:3.6.0'
 
 
 }
