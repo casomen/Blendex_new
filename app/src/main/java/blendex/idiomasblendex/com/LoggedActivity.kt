@@ -5,12 +5,11 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.GridLayout.VERTICAL
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
-import blendex.idiomasblendex.com.Adapters.ModuloAdapter
-import blendex.idiomasblendex.com.Adapters.SliderAdapter
+import blendex.idiomasblendex.com.adapters.ModuloAdapter
+import blendex.idiomasblendex.com.adapters.SliderAdapter
 import blendex.idiomasblendex.com.Objects.Modulo
 import blendex.idiomasblendex.com.Objects.Slider
 import blendex.idiomasblendex.com.db.AppDatabase
@@ -20,10 +19,11 @@ import kotlinx.android.synthetic.main.content_main.*
 
 import org.jetbrains.anko.selector
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoggedActivity : AppCompatActivity() {
 
     private var db: AppDatabase? = null
-    var ListPrograms = listOf<Programa_db>()
+    var listPrograms = listOf<Programa_db>()
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,19 +31,20 @@ class LoggedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_logged)
         intent?.let {
 
-            txName.text = "${it.extras.getString("n")
-                                            .toLowerCase().capitalize().trim()}"
+            txName.text = with(it) {
+                extras.getString("n").toLowerCase().capitalize().trim()
+            }
         }
 
         db = AppDatabase.getInstance(this)!!
         GetPrograms(this).execute()
 
         LinearProgram.setOnClickListener {
-            var p = mutableListOf("")
-            for (programs in ListPrograms){
+            val p = mutableListOf("")
+            for (programs in listPrograms){
                 p.add(programs.programas.replace(" - "," ").toLowerCase().capitalize())
             }
-            selector("Selecciona el programa actual", p) { dialogInterface, i ->
+            selector("Selecciona el programa", p) { dialogInterface, i ->
                 currentProgram.text = p[i]
             }
         }
@@ -82,13 +83,13 @@ class LoggedActivity : AppCompatActivity() {
     }
 
 
-    private class GetPrograms(var context: LoggedActivity) : AsyncTask<Void, Void, List<Programa_db>>() {
+    private class GetPrograms(val context: LoggedActivity) : AsyncTask<Void, Void, List<Programa_db>>() {
         override fun doInBackground(vararg params: Void?): List<Programa_db> {
             return context.db!!.programDao().getAll()
         }
         override fun onPostExecute(result: List<Programa_db>) {
             context.currentProgram.text = result[0].programas.replace(" - "," ").toLowerCase().capitalize().trim()
-            context.ListPrograms = result
+            context.listPrograms = result
         }
     }
 }

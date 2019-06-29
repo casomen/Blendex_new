@@ -2,21 +2,13 @@ package blendex.idiomasblendex.com
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.browser.customtabs.CustomTabsClient
-import androidx.browser.customtabs.CustomTabsServiceConnection
-import androidx.browser.customtabs.CustomTabsSession
 import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import android.view.MenuItem
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.appcompat.app.AppCompatActivity
@@ -25,9 +17,9 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.widget.Toolbar
 import android.view.View
-import blendex.idiomasblendex.com.Adapters.GamesAdapter
-import blendex.idiomasblendex.com.Adapters.SliderAdapter
-import blendex.idiomasblendex.com.Adapters.miExperienciaAdapter
+import blendex.idiomasblendex.com.adapters.GamesAdapter
+import blendex.idiomasblendex.com.adapters.SliderAdapter
+import blendex.idiomasblendex.com.adapters.miExperienciaAdapter
 import blendex.idiomasblendex.com.Objects.Game
 import kotlinx.android.synthetic.main.content_main.*
 import blendex.idiomasblendex.com.Objects.Slider

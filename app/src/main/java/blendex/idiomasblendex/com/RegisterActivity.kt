@@ -42,7 +42,6 @@ class RegisterActivity : AppCompatActivity() {
         actionbar!!.title = "Regresar"
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
         //mCompositeDisposable = CompositeDisposable()
         db = AppDatabase.getInstance(this)!!
         btnRegister.setOnClickListener {

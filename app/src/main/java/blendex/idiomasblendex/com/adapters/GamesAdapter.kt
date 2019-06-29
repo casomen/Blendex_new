@@ -1,4 +1,4 @@
-package blendex.idiomasblendex.com.Adapters
+package blendex.idiomasblendex.com.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater

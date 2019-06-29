@@ -13,6 +13,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".modulos.VocabularyActivity">
+        </activity>
+        <activity android:name=".modulos.GamesActivity">
+        </activity>
+        <activity android:name=".modulos.TutoriasActivity">
+        </activity>
+        <activity android:name=".modulos.GrammarActivity">
+        </activity>
         <activity
                 android:name=".LoggedActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"

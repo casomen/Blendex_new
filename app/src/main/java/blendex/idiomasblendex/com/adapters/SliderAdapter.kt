@@ -1,4 +1,4 @@
-package blendex.idiomasblendex.com.Adapters
+package blendex.idiomasblendex.com.adapters
 
 import android.content.ComponentName
 import android.content.Context
@@ -15,10 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import blendex.idiomasblendex.com.Objects.GlideApp
 import blendex.idiomasblendex.com.Objects.Slider
-import blendex.idiomasblendex.com.R
 import kotlinx.android.synthetic.main.adapter_pager.view.*
-import org.jetbrains.anko.toast
-
 
 
 class SliderAdapter(private val list:List<Slider>, val context:Context): RecyclerView.Adapter<SliderAdapter.ListViewHolder>(){
