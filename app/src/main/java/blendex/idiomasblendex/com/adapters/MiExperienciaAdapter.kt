@@ -9,7 +9,7 @@ import blendex.idiomasblendex.com.Objects.Slider
 import kotlinx.android.synthetic.main.item_image_snap.view.*
 import org.jetbrains.anko.toast
 
-class miExperienciaAdapter(private val list:List<Slider>): RecyclerView.Adapter<miExperienciaAdapter.ListViewHolder>(){
+class MiExperienciaAdapter(private val list:List<Slider>): RecyclerView.Adapter<MiExperienciaAdapter.ListViewHolder>(){
     private var itemClickListener: ((view: View, position: Int) -> Unit)? = null
 
     class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view)

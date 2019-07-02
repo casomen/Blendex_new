@@ -51,14 +51,14 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-        doAsync {
+        /*doAsync {
             uiThread {
                 alert("Hi, I'm Roy", "Have you tried turning it off and on again?") {
                     yesButton { toast("Oh…") }
                     noButton {}
                 }.show()
             }
-        }
+        }*/
 
     }
 

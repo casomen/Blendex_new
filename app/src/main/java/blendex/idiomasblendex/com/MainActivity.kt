@@ -19,7 +19,7 @@ import androidx.appcompat.widget.Toolbar
 import android.view.View
 import blendex.idiomasblendex.com.adapters.GamesAdapter
 import blendex.idiomasblendex.com.adapters.SliderAdapter
-import blendex.idiomasblendex.com.adapters.miExperienciaAdapter
+import blendex.idiomasblendex.com.adapters.MiExperienciaAdapter
 import blendex.idiomasblendex.com.Objects.Game
 import kotlinx.android.synthetic.main.content_main.*
 import blendex.idiomasblendex.com.Objects.Slider
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(){
 
         val listGame =
             listOf(
-                Game("Italiano","https://www.phoneworld.com.pk/wp-content/uploads/2018/12/maxresdefault-3.jpg")
+                Game("Italiano","cosa","https://www.phoneworld.com.pk/wp-content/uploads/2018/12/maxresdefault-3.jpg")
 
             )
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(){
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(rcViewHome)
 
-        val adapterExperiencia = miExperienciaAdapter(listExp)
+        val adapterExperiencia = MiExperienciaAdapter(listExp)
         adapterExperiencia.setItemClickListener { view, position ->
             val intent= Intent(this,FullscreenActivity::class.java)
             val options= if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
