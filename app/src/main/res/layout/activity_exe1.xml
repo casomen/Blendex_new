@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".games.Exe1Activity">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:popupTheme="@style/ToolbarTheme" tools:targetApi="lollipop" />
+
+        <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/cat_1"
+                android:id="@+id/image_P"
+                android:contentDescription="TODO"/>
+
+        <TextView
+                android:text="JACQUELINE THOMPSON"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="28sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/name_exe1"/>
+
+        <TextView
+                android:text="NURSE"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:id="@+id/profession_exe1"/>
+
+        <TextView
+                android:text="33 YEARS OLD"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:textSize="22sp"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:id="@+id/old_exe1"/>
+
+        <TextView
+                android:text="Hobbies: Dancing and cooking"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:id="@+id/hob_exe1"/>
+
+        <TextView
+                android:text="Buenos aires - Medellín"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content"
+                android:id="@+id/live_exe1"/>
+
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

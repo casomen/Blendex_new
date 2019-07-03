@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(){
 
         val listGame =
             listOf(
-                Game("Italiano","cosa","https://www.phoneworld.com.pk/wp-content/uploads/2018/12/maxresdefault-3.jpg")
+                Game("01","Italiano","cosa","https://www.phoneworld.com.pk/wp-content/uploads/2018/12/maxresdefault-3.jpg")
 
             )
 
