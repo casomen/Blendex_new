@@ -1,20 +1,16 @@
 package blendex.idiomasblendex.com.modulos
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import androidx.recyclerview.widget.LinearSnapHelper
 import blendex.idiomasblendex.com.Objects.Game
-import blendex.idiomasblendex.com.Objects.GlideApp
 import blendex.idiomasblendex.com.R
 import blendex.idiomasblendex.com.adapters.GamesItemsAdapter
-import kotlinx.android.synthetic.main.activity_exe1.*
 import kotlinx.android.synthetic.main.activity_games.*
 import kotlinx.android.synthetic.main.activity_games.toolbar
-import kotlinx.android.synthetic.main.item_image_snap.view.*
 
 class GamesActivity : AppCompatActivity() {
 

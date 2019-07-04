@@ -81,6 +81,38 @@
                 android:id="@+id/live_exe1"/>
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <TextView
+                    android:id="@+id/textView_countdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="30"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    app:layout_constraintBottom_toBottomOf="@+id/progress_countdown"
+                    app:layout_constraintRight_toRightOf="@+id/progress_countdown"
+                    app:layout_constraintEnd_toEndOf="@+id/progress_countdown"
+                    app:layout_constraintStart_toStartOf="@+id/progress_countdown"
+                    app:layout_constraintTop_toTopOf="@+id/progress_countdown"/>
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                    android:id="@+id/progress_countdown"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar"
+                    android:minWidth="56dp"
+                    android:minHeight="56dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

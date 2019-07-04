@@ -67,6 +67,8 @@ dependencies {
     implementation "org.jetbrains.anko:anko:0.10.8"
     implementation 'jp.wasabeef:glide-transformations:4.0.1'
     implementation 'com.github.amarjain07:StickyScrollView:1.0.2'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
+    implementation 'com.pavelsikun:material-seekbar-preference:2.3.0'
 
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     def room_version = "2.1.0"
