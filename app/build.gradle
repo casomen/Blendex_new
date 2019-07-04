@@ -69,6 +69,7 @@ dependencies {
     implementation 'com.github.amarjain07:StickyScrollView:1.0.2'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.6.1'
     implementation 'com.pavelsikun:material-seekbar-preference:2.3.0'
+    implementation 'com.tomergoldst.android:tooltips:1.0.10'
 
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     def room_version = "2.1.0"

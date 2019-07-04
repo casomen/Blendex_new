@@ -8,9 +8,14 @@ import android.os.Handler
 import android.util.Log
 import blendex.idiomasblendex.com.Objects.GlideApp
 import blendex.idiomasblendex.com.PrefUtil
-import blendex.idiomasblendex.com.R
 import kotlinx.android.synthetic.main.activity_exe1.*
 import org.jetbrains.anko.textColor
+import com.tomergoldst.tooltips.ToolTipsManager
+import com.tomergoldst.tooltips.ToolTip
+
+
+
+
 
 class Exe1Activity : AppCompatActivity() {
 
@@ -27,7 +32,7 @@ class Exe1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exe1)
+        setContentView(blendex.idiomasblendex.com.R.layout.activity_exe1)
 
         setSupportActionBar(toolbar)
         val actionbar = supportActionBar
@@ -47,6 +52,15 @@ class Exe1Activity : AppCompatActivity() {
             },
             300
         )
+        val mToolTipsManager = ToolTipsManager()
+
+        val builder = ToolTip.Builder(this, profession_exe1, CoordinatorLayoutExe1,
+            "Enfermera", ToolTip.POSITION_ABOVE).setBackgroundColor(Color.BLUE)
+
+        profession_exe1.setOnClickListener {
+            mToolTipsManager.show(builder.build())
+
+        }
     }
 
     override fun onStart() {
