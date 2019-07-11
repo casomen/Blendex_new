@@ -2,13 +2,15 @@ package blendex.idiomasblendex.com
 
 import android.content.Intent
 import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import blendex.idiomasblendex.com.db.AppDatabase
 import blendex.idiomasblendex.com.db.objects.Programa_db
 import blendex.idiomasblendex.com.db.objects.Student_db
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 import org.jetbrains.anko.startActivity
 import java.io.Serializable
 
@@ -63,7 +65,9 @@ class SplashActivity : AppCompatActivity() {
 
                 //startActivity(intent)
                 //finish()
-                startActivity<LoggedActivity>("n" to nom,"a" to ap)
+                //startActivity<LoggedActivity>("n" to nom, "a" to ap)
+                startActivity<LoggedActivity>("n" to nom, "a" to ap)
+
 
             },
             splashScreenDuration
