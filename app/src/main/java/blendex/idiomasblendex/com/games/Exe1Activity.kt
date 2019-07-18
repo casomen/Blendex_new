@@ -45,13 +45,13 @@ class Exe1Activity : AppCompatActivity() {
             .circleCrop()
             .into(image_P)
 
-        Handler().postDelayed(
+        /*Handler().postDelayed(
             {
                 startTimer()
                 timerState =  TimerState.Running
             },
             300
-        )
+        )*/
         val mToolTipsManager = ToolTipsManager()
 
         val builder = ToolTip.Builder(this, profession_exe1, CoordinatorLayoutExe1,
@@ -59,15 +59,9 @@ class Exe1Activity : AppCompatActivity() {
 
         profession_exe1.setOnClickListener {
             mToolTipsManager.show(builder.build())
-
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -75,8 +69,8 @@ class Exe1Activity : AppCompatActivity() {
     }
 
 
-    private fun initTimer(){
-        timerState = PrefUtil.getTimerState(this)
+    /*private fun initTimer(){
+        timerState = PrefUtil.getTimerState(this@Exe1Activity)
         if (timerState == TimerState.Stopped)
             setNewTimerLength()
         else
@@ -91,7 +85,7 @@ class Exe1Activity : AppCompatActivity() {
             Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN)
         textView_countdown.textColor = Color.BLACK
         updateCountdownUI()
-    }
+    }*/
 
     private fun onTimerFinished(){
         timerState = TimerState.Stopped
@@ -149,7 +143,7 @@ class Exe1Activity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        initTimer()
+        //initTimer()
     }
 
 

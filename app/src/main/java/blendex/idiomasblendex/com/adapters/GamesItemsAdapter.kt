@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import blendex.idiomasblendex.com.Objects.Game
 import blendex.idiomasblendex.com.R
 import blendex.idiomasblendex.com.games.Exe1Activity
+import blendex.idiomasblendex.com.games.ExeActivity
 import blendex.idiomasblendex.com.modulos.GrammarActivity
 import kotlinx.android.synthetic.main.item_game.view.*
 import kotlinx.android.synthetic.main.item_image_snap.view.*
@@ -31,8 +32,9 @@ class GamesItemsAdapter(private val list: List<Game>, val context: Context): Rec
                 view.setOnClickListener {
 
                     when {
-                        cod_Game.contains("01") -> view.context.startActivity<Exe1Activity>()
-                        else -> view.context.toast("Click ${nameImage}")
+                        cod_Game.contains("01") -> view.context.startActivity<ExeActivity>("n" to "Exe1Fragment")
+                        cod_Game.contains("02") -> view.context.startActivity<ExeActivity>("n" to "otra")
+                        else -> view.context.toast("Click $nameImage")
 
                     }
                     }

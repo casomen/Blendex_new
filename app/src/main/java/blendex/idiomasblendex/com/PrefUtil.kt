@@ -34,10 +34,10 @@ class PrefUtil {
 
         private const val TIMER_STATE_ID = "com.resocoder.timer.timer_state"
 
-        fun getTimerState(context: Context): Exe1Activity.TimerState{
+        fun getTimerState(context: Context): Exe1Fragment.TimerState {
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             val ordinal = preferences.getInt(TIMER_STATE_ID, 0)
-            return Exe1Activity.TimerState.values()[ordinal]
+            return Exe1Fragment.TimerState.values()[ordinal]
         }
 
         fun setTimerState(state: Exe1Activity.TimerState, context: Context){

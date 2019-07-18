@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/FrameExe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".Exe1Fragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutExe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/cat_1"
+                android:id="@+id/image_P"
+                android:contentDescription="TODO"/>
+
+        <TextView
+                android:text="JACQUELINE THOMPSON"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="28sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/name_exe1"/>
+
+        <TextView
+                android:text="NURSE"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:id="@+id/profession_exe1"/>
+
+        <TextView
+                android:text="33 YEARS OLD"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:textSize="22sp"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:id="@+id/old_exe1"/>
+
+        <TextView
+                android:text="Hobbies: Dancing and cooking"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:id="@+id/hob_exe1"/>
+
+        <TextView
+                android:text="Buenos aires - Medellín"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content"
+                android:id="@+id/live_exe1"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <TextView
+                    android:id="@+id/textView_countdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="30"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    app:layout_constraintBottom_toBottomOf="@+id/progress_countdown"
+                    app:layout_constraintRight_toRightOf="@+id/progress_countdown"
+                    app:layout_constraintEnd_toEndOf="@+id/progress_countdown"
+                    app:layout_constraintStart_toStartOf="@+id/progress_countdown"
+                    app:layout_constraintTop_toTopOf="@+id/progress_countdown"/>
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                    android:id="@+id/progress_countdown"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar"
+                    android:minWidth="56dp"
+                    android:minHeight="56dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
