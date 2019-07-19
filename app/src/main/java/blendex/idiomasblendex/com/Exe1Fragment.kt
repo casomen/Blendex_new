@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import blendex.idiomasblendex.com.Objects.GlideApp
+import blendex.idiomasblendex.com.games.Exe1Activity
 import com.tomergoldst.tooltips.ToolTip
 import com.tomergoldst.tooltips.ToolTipsManager
 import kotlinx.android.synthetic.main.activity_exe.*
@@ -45,7 +46,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class Exe1Fragment : Fragment() {
+class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
+    private val mToolTipsManager = ToolTipsManager(this)
+    private val TAG_ = "CASO"
+
+    override fun onTipDismissed(view: View?, anchorViewId: Int, byUser: Boolean) {
+        if (anchorViewId == R.id.profession_exe1) {
+            mToolTipsManager.dismiss(anchorViewId)//OCULTA EL TIP
+        }
+
+    }
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -86,16 +97,17 @@ class Exe1Fragment : Fragment() {
             },
             300
         )
-
+        val builder = ToolTip.Builder(
+            this.context!!, view.profession_exe1, view.coordinator2!!,
+            "Enfermera", ToolTip.POSITION_ABOVE).setBackgroundColor(Color.BLUE)
 
 
         view.profession_exe1.setOnClickListener {
-            val mToolTipsManager = ToolTipsManager()
+                mToolTipsManager.show(builder.build())
+        }
 
-            val builder = ToolTip.Builder(
-                this.context!!, view.profession_exe1, view.coordinator2,
-                "Enfermera", ToolTip.POSITION_ABOVE).setBackgroundColor(Color.BLUE)
-            mToolTipsManager.show(builder.build())
+        view.setOnClickListener {
+            mToolTipsManager.dismissAll()
         }
 
         return view
@@ -125,7 +137,14 @@ class Exe1Fragment : Fragment() {
     override fun onResume() {
         super.onResume()
         initTimer()
+    }
 
+    override fun onPause() {
+        super.onPause()
+
+        if (timerState == TimerState.Running){
+            timer.cancel()
+        }
 
     }
 
