@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_exe1.view.*
 import kotlinx.android.synthetic.main.fragment_exe1.view.profession_exe1
 import kotlinx.android.synthetic.main.fragment_exe1.view.progress_countdown
 import kotlinx.android.synthetic.main.fragment_exe1.view.textView_countdown
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.textColor
 import kotlinx.android.synthetic.main.activity_exe1.linearLayoutExe1 as linearLayoutExe11
 
@@ -95,7 +96,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
                 startTimer()
                 timerState =  TimerState.Running
             },
-            300
+            200
         )
         val builder = ToolTip.Builder(
             this.context!!, view.profession_exe1, view.coordinator2!!,
@@ -179,6 +180,17 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
             setNewTimerLength()
         else
             setPreviousTimerLength()
+
+
+        Handler().postDelayed(
+            {
+                if (timerState == TimerState.Stopped){
+                    toast("Comienza nuevamente")
+                    activity!!.onBackPressed()
+                }
+            },
+            250
+        )
 
         secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
             PrefUtil.getSecondsRemaining(activity!!.applicationContext)

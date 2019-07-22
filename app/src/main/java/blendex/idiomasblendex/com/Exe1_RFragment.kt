@@ -1,12 +1,21 @@
 package blendex.idiomasblendex.com
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.preference.PreferenceManager
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_exe1.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.textColor
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +37,19 @@ class Exe1_RFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private val TIMER_STATE_ID_B = "blendex.idiomasblendex.com.time"
+    private val SECONDS_REMAINING_ID_B = "blendex.idiomasblendex.com.seconds_remaining"
+
+    enum class TimerState{
+        Stopped, Paused, Running
+    }
+
+    private lateinit var timer: CountDownTimer
+    private var timerLengthSeconds: Long = 20L
+    private var timerState = TimerState.Stopped
+
+    private var secondsRemaining: Long = 20L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +63,15 @@ class Exe1_RFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exe1__r, container, false)
+        val view = inflater.inflate(R.layout.fragment_exe1__r, container, false)
+        Handler().postDelayed(
+            {
+                startTimer()
+                timerState =  TimerState.Running
+            },
+            200
+        )
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -55,7 +84,7 @@ class Exe1_RFragment : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 
@@ -98,5 +127,126 @@ class Exe1_RFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
     }
+
+
+    @SuppressLint("ShowToast")
+    override fun onResume() {
+        super.onResume()
+        initTimer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (timerState == TimerState.Running){
+            timer.cancel()
+        }
+
+    }
+
+    private fun initTimer(){
+        timerState = getTimerState(activity!!.applicationContext)
+        if (timerState == TimerState.Stopped)
+            setNewTimerLength()
+        else
+            setPreviousTimerLength()
+
+        Handler().postDelayed(
+            {
+                if (timerState == TimerState.Stopped){
+                    toast("Comienza nuevamente")
+                    activity!!.onBackPressed()
+                }
+            },
+            250
+        )
+
+
+        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
+            getSecondsRemaining(activity!!.applicationContext)
+        else
+            timerLengthSeconds
+
+        progress_countdown.progressDrawable.setColorFilter(
+            Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN)
+        textView_countdown.textColor = Color.BLACK
+        updateCountdownUI()
+    }
+
+    private fun getTimerState(context: Context): TimerState {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val ordinal = preferences.getInt(TIMER_STATE_ID_B, 0)
+        return TimerState.values()[ordinal]
+    }
+
+
+    private fun getSecondsRemaining(context: Context): Long{
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return preferences.getLong(SECONDS_REMAINING_ID_B, 0)
+    }
+
+    private fun setSecondsRemaining(seconds: Long, context: Context){
+        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        editor.putLong(SECONDS_REMAINING_ID_B, seconds)
+        editor.apply()
+    }
+
+    private fun setNewTimerLength(){
+        Log.w("CASO",timerLengthSeconds.toString())
+        progress_countdown.max = timerLengthSeconds.toInt()
+    }
+
+    private fun setPreviousTimerLength(){
+        progress_countdown.max = timerLengthSeconds.toInt()
+    }
+
+
+    private fun updateCountdownUI(){
+        val minutesUntilFinished = secondsRemaining / 60
+        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
+        val secondsStr = secondsInMinuteUntilFinished.toString()
+        textView_countdown.text = if (secondsStr.length == 2) secondsStr else "0$secondsStr"
+        progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
+        if((timerLengthSeconds - secondsRemaining).toInt() == 20){
+            progress_countdown.progressDrawable.setColorFilter(
+                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN)
+            textView_countdown.textColor = Color.BLACK
+        }
+    }
+
+    private fun startTimer(){
+        timerState = TimerState.Running
+
+        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+            override fun onFinish() = onTimerFinished()
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsRemaining = millisUntilFinished / 1000
+                updateCountdownUI()
+            }
+        }.start()
+    }
+
+    @SuppressLint("ShowToast")
+    private fun onTimerFinished(){
+        timerState = TimerState.Stopped
+
+        progress_countdown.progress = timerLengthSeconds.toInt()
+
+        setSecondsRemaining(timerLengthSeconds, activity!!.applicationContext)
+        secondsRemaining = timerLengthSeconds
+        with(progress_countdown) {
+            progressDrawable.setColorFilter(
+                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN)
+        }
+        textView_countdown.textColor = Color.RED
+        //activity!!.supportFragmentManager.beginTransaction().replace(R.id.ContainerFragment,Exe1_RFragment()).commit()
+        nextQuestion()
+    }
+    private fun nextQuestion(){
+        toast("Hola siguiente pregunta")
+    }
+
 }
