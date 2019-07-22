@@ -18,7 +18,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <TextView android:layout_width="match_parent"
+            <TextView
+                    android:id="@+id/question1"
+                    android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:layout_gravity="center"
                       android:gravity="center"
@@ -40,11 +42,13 @@
         android:orientation="horizontal">
 
     <Button
+            android:id="@+id/exe1_true"
             android:text="True"
             android:layout_weight=".5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     <Button
+            android:id="@+id/exe1_false"
             android:text="False"
             android:layout_weight=".5"
             android:layout_width="wrap_content"

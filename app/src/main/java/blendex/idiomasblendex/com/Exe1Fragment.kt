@@ -3,14 +3,21 @@ package blendex.idiomasblendex.com
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Toast
 import blendex.idiomasblendex.com.Objects.GlideApp
@@ -30,6 +37,7 @@ import kotlinx.android.synthetic.main.fragment_exe1.view.progress_countdown
 import kotlinx.android.synthetic.main.fragment_exe1.view.textView_countdown
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.textColor
+import java.util.*
 import kotlinx.android.synthetic.main.activity_exe1.linearLayoutExe1 as linearLayoutExe11
 
 
@@ -228,14 +236,19 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         with(progress_countdown) {
             progressDrawable.setColorFilter(
                 Color.RED, android.graphics.PorterDuff.Mode.SRC_IN)
-
+            visibility = GONE
 
 
         }
         textView_countdown.textColor = Color.RED
+        textView_countdown.text = "->"
         //updateCountdownUI()
         //toast("Termino")
-        activity!!.supportFragmentManager.beginTransaction().replace(R.id.ContainerFragment,Exe1_RFragment()).commit()
+
+        activity!!.supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(android.R.anim.slide_in_left,R.anim.abc_fade_out)
+            .replace(R.id.ContainerFragment,Exe1_RFragment()).commit()
     }
 
     private fun setNewTimerLength(){
@@ -253,12 +266,16 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
         textView_countdown.text = if (secondsStr.length == 2) secondsStr else "0$secondsStr"
-        progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
+        progress_countdown.progress = (secondsRemaining).toInt()
         if((timerLengthSeconds - secondsRemaining).toInt() == 20){
             progress_countdown.progressDrawable.setColorFilter(
                 Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN)
             textView_countdown.textColor = Color.BLACK
         }
+    }
+
+    fun restartQuestion(){
+
     }
 
 }

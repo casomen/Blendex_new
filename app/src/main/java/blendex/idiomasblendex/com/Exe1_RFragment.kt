@@ -14,6 +14,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_exe1.*
+import kotlinx.android.synthetic.main.fragment_exe1.progress_countdown
+import kotlinx.android.synthetic.main.fragment_exe1.textView_countdown
+import kotlinx.android.synthetic.main.fragment_exe1__r.*
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.textColor
 
@@ -39,16 +42,16 @@ class Exe1_RFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private val TIMER_STATE_ID_B = "blendex.idiomasblendex.com.time"
     private val SECONDS_REMAINING_ID_B = "blendex.idiomasblendex.com.seconds_remaining"
-
+    var contador = 0
     enum class TimerState{
         Stopped, Paused, Running
     }
 
     private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 20L
+    private var timerLengthSeconds: Long = 21L
     private var timerState = TimerState.Stopped
 
-    private var secondsRemaining: Long = 20L
+    private var secondsRemaining: Long = 21L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +74,7 @@ class Exe1_RFragment : Fragment() {
             },
             200
         )
+
         return view
     }
 
@@ -135,6 +139,13 @@ class Exe1_RFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         initTimer()
+
+        exe1_false.setOnClickListener {
+            restartQuestion()
+        }
+        exe1_true.setOnClickListener {
+            restartQuestion()
+        }
     }
 
     override fun onPause() {
@@ -149,9 +160,7 @@ class Exe1_RFragment : Fragment() {
     private fun initTimer(){
         timerState = getTimerState(activity!!.applicationContext)
         if (timerState == TimerState.Stopped)
-            setNewTimerLength()
-        else
-            setPreviousTimerLength()
+            progress_countdown.max = timerLengthSeconds.toInt()
 
         Handler().postDelayed(
             {
@@ -193,14 +202,6 @@ class Exe1_RFragment : Fragment() {
         editor.apply()
     }
 
-    private fun setNewTimerLength(){
-        Log.w("CASO",timerLengthSeconds.toString())
-        progress_countdown.max = timerLengthSeconds.toInt()
-    }
-
-    private fun setPreviousTimerLength(){
-        progress_countdown.max = timerLengthSeconds.toInt()
-    }
 
 
     private fun updateCountdownUI(){
@@ -208,12 +209,21 @@ class Exe1_RFragment : Fragment() {
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
         textView_countdown.text = if (secondsStr.length == 2) secondsStr else "0$secondsStr"
-        progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
-        if((timerLengthSeconds - secondsRemaining).toInt() == 20){
+        progress_countdown.progress = (secondsRemaining).toInt()
+        //Log.d("TIMEPO","${(timerLengthSeconds - secondsRemaining).toInt()}")
+        if((timerLengthSeconds - secondsRemaining).toInt() == 10){
             progress_countdown.progressDrawable.setColorFilter(
                 Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN)
             textView_countdown.textColor = Color.BLACK
         }
+
+        if((timerLengthSeconds - secondsRemaining).toInt() == 1){
+
+            progress_countdown.progressDrawable.setColorFilter(
+                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN)
+            textView_countdown.textColor = Color.BLACK
+        }
+
     }
 
     private fun startTimer(){
@@ -225,6 +235,7 @@ class Exe1_RFragment : Fragment() {
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
                 updateCountdownUI()
+
             }
         }.start()
     }
@@ -243,10 +254,23 @@ class Exe1_RFragment : Fragment() {
         }
         textView_countdown.textColor = Color.RED
         //activity!!.supportFragmentManager.beginTransaction().replace(R.id.ContainerFragment,Exe1_RFragment()).commit()
-        nextQuestion()
+        restartQuestion(contador++)
     }
-    private fun nextQuestion(){
-        toast("Hola siguiente pregunta")
+
+    private fun restartQuestion(indexQ: Int = 0){
+
+        question1.text = "Hola $indexQ"
+
+        if (timerState == TimerState.Running){
+            timer.cancel()
+            onTimerFinished()
+            }
+
+        if (timerState == TimerState.Stopped){
+            startTimer()
+        }
+
+
     }
 
 }
