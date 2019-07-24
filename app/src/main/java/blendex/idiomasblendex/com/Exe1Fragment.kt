@@ -43,7 +43,7 @@ import kotlinx.android.synthetic.main.activity_exe1.linearLayoutExe1 as linearLa
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "name"
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -58,7 +58,6 @@ private const val ARG_PARAM2 = "param2"
 class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
     private val mToolTipsManager = ToolTipsManager(this)
     private val TAG_ = "CASO"
-
     override fun onTipDismissed(view: View?, anchorViewId: Int, byUser: Boolean) {
         if (anchorViewId == R.id.profession_exe1) {
             mToolTipsManager.dismiss(anchorViewId)//OCULTA EL TIP
@@ -67,7 +66,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
     }
 
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var name: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
@@ -76,16 +75,16 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
     }
 
     private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 30L
+    private var timerLengthSeconds: Long = 20L
     private var timerState = TimerState.Stopped
 
-    private var secondsRemaining: Long = 30L
+    private var secondsRemaining: Long = 20L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            name = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -107,7 +106,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
             200
         )
         val builder = ToolTip.Builder(
-            this.context!!, view.profession_exe1, view.coordinator2!!,
+            this.context!!, view.profession_exe1, view.coordinator2!! as ViewGroup,
             "Enfermera", ToolTip.POSITION_ABOVE).setBackgroundColor(Color.BLUE)
 
 
@@ -118,12 +117,17 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         view.setOnClickListener {
             mToolTipsManager.dismissAll()
         }
+        listener?.onFragmentInteraction("hola")
+        /*arguments.let {
+            Log.w("CASO1",name)
+            Log.w("CASO2",param2)
+        }*/
 
         return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    fun onButtonPressed(uri: String) {
         listener?.onFragmentInteraction(uri)
     }
 
@@ -159,7 +163,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
 
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(uri: String)
     }
 
     companion object {
@@ -173,10 +177,10 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(name: String, param2: String) =
             Exe1Fragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM1, name)
                     putString(ARG_PARAM2, param2)
                 }
             }
@@ -248,7 +252,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         activity!!.supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(android.R.anim.slide_in_left,R.anim.abc_fade_out)
-            .replace(R.id.ContainerFragment,Exe1_RFragment()).commit()
+            .replace(R.id.ContainerFragment,Exe1_RFragment.newInstance(name?:"no hay nombre","hola")).commit()
     }
 
     private fun setNewTimerLength(){

@@ -32,7 +32,7 @@ class GamesItemsAdapter(private val list: List<Game>, val context: Context): Rec
                 view.setOnClickListener {
 
                     when {
-                        cod_Game.contains("01") -> view.context.startActivity<ExeActivity>("n" to "Exe1Fragment")
+                        cod_Game.contains("01") -> view.context.startActivity<ExeActivity>("n" to "Exe1Fragment","name" to g.nameImage)
                         cod_Game.contains("02") -> view.context.startActivity<ExeActivity>("n" to "otra")
                         else -> view.context.toast("Click $nameImage")
 

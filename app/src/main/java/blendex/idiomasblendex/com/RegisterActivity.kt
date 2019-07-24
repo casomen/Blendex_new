@@ -2,15 +2,18 @@ package blendex.idiomasblendex.com
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import blendex.idiomasblendex.com.Interfaces.RequestRetrofit
 import blendex.idiomasblendex.com.Objects.Student
 import blendex.idiomasblendex.com.db.objects.Student_db
@@ -23,6 +26,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import org.jetbrains.anko.startActivity
 
 class RegisterActivity : AppCompatActivity() {
    // private var mCompositeDisposable: CompositeDisposable? = null
@@ -48,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
             //val format = SimpleDateFormat("dd/MM/yyy")
             register(editTextID.text.toString(),editTextDATE.text.toString())
         }
+
 
 
 
@@ -127,7 +132,7 @@ class RegisterActivity : AppCompatActivity() {
                             //save(std)
                             toast("nombre:${s.nombres} apellidos:${s.apellidos}-" +
                                     "${s.ListProgramas.get(0).programa.programa} - ${s.ListProgramas.get(0).programa.estado} ")
-
+                            scheduleLogged(s.nombres,s.apellidos)
                             for (i in s.ListProgramas) {
                                 Log.w("CASO","${i.programa.programa} - ${i.programa.estado} ")
                                 Log.w("CASO","${i.programa.fechaVigenciaInicial} - ${i.programa.fechaVigenciaFinal} ")
@@ -188,6 +193,7 @@ class RegisterActivity : AppCompatActivity() {
             if (bool!!) {
                 Toast.makeText(context, "Added Program to Database", Toast.LENGTH_LONG).show()
             }
+
         }
     }
 
@@ -218,5 +224,22 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    fun scheduleLogged(nom: String, ap: String) {
+        val splashScreenDuration =200L
+        Handler().postDelayed(
+            {
+                // After the splash screen duration, route to the right activities
+                //val intent = Intent(this, LoggedActivity::class.java)
+
+                //startActivity(intent)
+                //finish()
+                //startActivity<LoggedActivity>("n" to nom, "a" to ap)
+                startActivity<LoggedActivity>("n" to nom, "a" to ap)
+
+
+            },
+            splashScreenDuration
+        )
+    }
 
 }
