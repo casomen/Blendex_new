@@ -2,12 +2,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:id="@+id/playerMain"
+             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context=".ReproductorFragment">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-            android:id="@+id/simpleExoPlayerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/playerView"
+                android:focusable="true"
+                app:resize_mode="fill"
+                android:keepScreenOn="true"
+                app:use_controller="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        </com.google.android.exoplayer2.ui.PlayerView>
+
+        <com.google.android.exoplayer2.ui.PlayerControlView
+                android:id="@+id/controls"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:controller_layout_id="@layout/custom_playback_control"
+                app:show_timeout="0">
+
+        </com.google.android.exoplayer2.ui.PlayerControlView>
+
 
 </FrameLayout>

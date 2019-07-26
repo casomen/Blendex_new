@@ -60,7 +60,7 @@ class Exe1_RFragment : Fragment(), StatisticsFragment.OnFragmentInteractionListe
     enum class TimerState{
         Stopped, Paused, Running
     }
-
+    val h = Handler()
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 21L
     private var timerState = TimerState.Stopped
@@ -188,6 +188,7 @@ class Exe1_RFragment : Fragment(), StatisticsFragment.OnFragmentInteractionListe
         if (timerState == TimerState.Running){
             timer.cancel()
         }
+        h.removeCallbacksAndMessages(null)
 
     }
 
@@ -202,7 +203,7 @@ class Exe1_RFragment : Fragment(), StatisticsFragment.OnFragmentInteractionListe
         Handler().postDelayed(
             {
                 if (timerState == TimerState.Stopped){
-                    toast("Comienza nuevamente")
+                    toast(resources.getText(R.string.try_again))
                     activity!!.onBackPressed()
                 }
             },
@@ -310,9 +311,9 @@ class Exe1_RFragment : Fragment(), StatisticsFragment.OnFragmentInteractionListe
     private fun initQuestion(){
         preguntas_respuestas.shuffle()
         question1.text = preguntas_respuestas[0].q
-        Log.w("PREGUNTAS", "_------------------------------------")
-        Log.w("PREGUNTAS", "total ${preguntas_respuestas.size}")
-        Log.w("CASO", "${preguntas_respuestas[0].q} Respuesta: ${preguntas_respuestas[0].a}")
+        //Log.w("PREGUNTAS", "_------------------------------------")
+        //Log.w("PREGUNTAS", "total ${preguntas_respuestas.size}")
+        //Log.w("CASO", "${preguntas_respuestas[0].q} Respuesta: ${preguntas_respuestas[0].a}")
 
     }
 
@@ -326,20 +327,26 @@ class Exe1_RFragment : Fragment(), StatisticsFragment.OnFragmentInteractionListe
                 val res = r.substring(0, 1)
                 val resError = r.substring(2, 3)
 
-                Log.w("CASO", "Respuesta: $res - desicion: $op - R: $r - pregunta ${preguntas_respuestas[0].q}")
+                //Log.w("CASO", "Respuesta: $res - desicion: $op - R: $r - pregunta ${preguntas_respuestas[0].q}")
                 //Log.w("CASO", "RES: $r OP: $op")
 
                 if (op.contentEquals(res)) {
                     playSound(correctSound, 1.0f)
-                    toast("GANASTE")
+                    toast(resources.getText(R.string.Well_done))
                     correct++
                 }else{
                     playSound(errorSound, 1.0f)
-                    toast("PERDISTE INCORRECTA")
+                    toast(resources.getText(R.string.you_lose))
                     incorrect++
                 }
-                preguntas_respuestas.removeAt(0)
-                initQuestion()
+
+                h.postDelayed(
+                    {
+                        preguntas_respuestas.removeAt(0)
+                        initQuestion()
+                    },
+                    1000 // value in milliseconds
+                )
 
                 if(indexQ == 4){
                     //toast("Comienza nuevamente")

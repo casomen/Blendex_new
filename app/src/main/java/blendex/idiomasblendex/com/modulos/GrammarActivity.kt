@@ -36,8 +36,8 @@ class GrammarActivity : AppCompatActivity() {
 
         val list =
             listOf(
-                GrammarVideo("Primer video","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex1-1024x643.jpg","url video 1 ","desc"),
-                GrammarVideo("Segundo video","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex23-1024x680.jpg","url video 2 ","desc 2")
+                GrammarVideo("Primer video","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex1-1024x643.jpg","https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8","desc"),
+                GrammarVideo("Segundo video","https://idiomasblendex.com/wp-content/uploads/2019/05/Mi-experiencia-Blendex23-1024x680.jpg","https://appblendex.s3.amazonaws.com/ana/mod.m3u8","desc 2")
             )
 
         val adapter = GrammarItemsAdapter(list,applicationContext)

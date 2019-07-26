@@ -32,7 +32,7 @@ class GamesActivity : AppCompatActivity() {
         )
         val list =
             listOf(
-                Game("01","1. Making new friends","Read Jaqueline’s ID card and select TRUE or  FALSE","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg"),
+                Game("01","1. Making new friends","Read Jaqueline’s ID card and select TRUE or  FALSE","https://idiomasblendex.com/wp-content/uploads/2019/07/enfermera.jpg"),
                         Game("02","2. Parts of Speech","Read Mario’s letter and classify the words in bold into the appropriate \n" +
                                 "category.","https://static.idiomasblendex.com/HOME/aprender+italiano.jpg")
 

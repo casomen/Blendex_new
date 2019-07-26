@@ -75,10 +75,10 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
     }
 
     private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 20L
+    private var timerLengthSeconds: Long = 30L
     private var timerState = TimerState.Stopped
 
-    private var secondsRemaining: Long = 20L
+    private var secondsRemaining: Long = 30L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +95,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_exe1, container, false)
         GlideApp.with(view.context)
-            .load("https://static.idiomasblendex.com/HOME/aprender+italiano.jpg")
+            .load("https://idiomasblendex.com/wp-content/uploads/2019/07/enfermera.jpg")
             .circleCrop()
             .into(view.image_P)
         Handler().postDelayed(
@@ -107,7 +107,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         )
         val builder = ToolTip.Builder(
             this.context!!, view.profession_exe1, view.coordinator2!! as ViewGroup,
-            "Enfermera", ToolTip.POSITION_ABOVE).setBackgroundColor(Color.BLUE)
+            "Doctor's Assistant", ToolTip.POSITION_ABOVE).setBackgroundColor(Color.BLUE)
 
 
         view.profession_exe1.setOnClickListener {
@@ -197,7 +197,7 @@ class Exe1Fragment : Fragment(),ToolTipsManager.TipListener{
         Handler().postDelayed(
             {
                 if (timerState == TimerState.Stopped){
-                    toast("Comienza nuevamente")
+                    toast(resources.getText(R.string.try_again))
                     activity!!.onBackPressed()
                 }
             },

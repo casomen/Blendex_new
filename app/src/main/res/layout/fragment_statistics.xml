@@ -15,7 +15,7 @@
                 android:gravity="center"
                 android:fontFamily="monospace"
                 android:textSize="24sp"
-                android:text="RESUMEN"/>
+                android:text="SUMMARY"/>
 
         <TextView
                 android:id="@+id/name_game"
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:textSize="24sp"
-                    android:text="Respuestas correctas"/>
+                    android:text="Correct Answers"/>
 
             <TextView
                     android:layout_weight=".5"
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:textSize="24sp"
-                    android:text="Respuestas incorrectas"/>
+                    android:text="Incorrect Answers"/>
 
             <TextView
                     android:id="@+id/textM"
