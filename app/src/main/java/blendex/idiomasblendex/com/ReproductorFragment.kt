@@ -1,14 +1,16 @@
 package blendex.idiomasblendex.com
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
-import android.view.ViewGroup
+import android.view.View.VISIBLE
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -19,6 +21,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.upstream.*
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_video.*
+import kotlinx.android.synthetic.main.activity_video.view.*
 import kotlinx.android.synthetic.main.custom_playback_control.*
 import kotlinx.android.synthetic.main.fragment_reproductor.*
 import org.jetbrains.anko.support.v4.selector
@@ -62,7 +65,7 @@ class ReproductorFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_reproductor, container, false)
-        //toast("Hola $name, URL: $urlVideo")
+        //toast("Hola $name, URL: $urlVideo"
         return view
     }
 
@@ -199,6 +202,7 @@ val dataSourceFactory = DefaultHttpDataSourceFactory(Util.getUserAgent(activity!
         if (Util.SDK_INT > 23) initializePlayer()
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     override fun onResume() {
         super.onResume()
 
@@ -215,9 +219,29 @@ val dataSourceFactory = DefaultHttpDataSourceFactory(Util.getUserAgent(activity!
                 }
             }
         }
+
         exo_fullscreen_icon.setOnClickListener {
-            toolbar.visibility = GONE
+            //toolbar.visibility = GONE
+
+            if (activity?.toolbar!!.visibility == GONE){
+                activity?.toolbar!!.visibility = VISIBLE
+            }else{
+                activity?.toolbar!!.visibility = GONE
+
+                if (Build.VERSION.SDK_INT >= 16) {
+                    activity?.window?.setFlags(AccessibilityNodeInfoCompat.ACTION_NEXT_HTML_ELEMENT, AccessibilityNodeInfoCompat.ACTION_NEXT_HTML_ELEMENT)
+                    activity?.window?.decorView?.systemUiVisibility = 3328
+                }else{
+                    activity?.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+                }
+
+            }
+
+            toast("Ampliar")
         }
+
     }
 
 

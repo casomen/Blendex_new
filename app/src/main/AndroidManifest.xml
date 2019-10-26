@@ -12,8 +12,10 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
+
             android:theme="@style/AppTheme">
-        <activity android:name=".Grammar.VideoActivity">
+        <activity android:name=".Grammar.VideoActivity"
+                android:configChanges="orientation|screenSize|layoutDirection">
         </activity>
         <activity android:name=".games.ExeActivity">
         </activity>
