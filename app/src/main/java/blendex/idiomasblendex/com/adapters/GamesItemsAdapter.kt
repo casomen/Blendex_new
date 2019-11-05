@@ -33,7 +33,7 @@ class GamesItemsAdapter(private val list: List<Game>, val context: Context): Rec
 
                     when {
                         cod_Game.contains("01") -> view.context.startActivity<ExeActivity>("n" to "Exe1Fragment","name" to g.nameImage)
-                        cod_Game.contains("02") -> view.context.startActivity<ExeActivity>("n" to "otra")
+                        cod_Game.contains("02") -> view.context.startActivity<ExeActivity>("n" to "Exe2Fragment","name" to g.nameImage)
                         else -> view.context.toast("Click $nameImage")
 
                     }

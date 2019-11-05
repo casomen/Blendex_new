@@ -324,7 +324,7 @@ class Exe1_RFragment : Fragment(), StatisticsFragment.OnFragmentInteractionListe
         if(op != "") {
             if (indexQ <= 4) {
                 val r = preguntas_respuestas[0].a
-                val res = r.substring(0, 1)
+                val res = r.substring(0, 1) //1|0
                 val resError = r.substring(2, 3)
 
                 //Log.w("CASO", "Respuesta: $res - desicion: $op - R: $r - pregunta ${preguntas_respuestas[0].q}")

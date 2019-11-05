@@ -33,15 +33,15 @@
                 android:contentDescription="TODO"/>
 
         <TextView
-                android:text="JACQUELINE THOMPSON"
-                android:gravity="center"
+                android:id="@+id/name_exe1"
                 android:layout_width="match_parent"
-                android:textSize="28sp"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="@dimen/spacing_large"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:id="@+id/name_exe1"/>
+                android:layout_marginTop="@dimen/spacing_large"
+                android:gravity="center"
+                android:text="NATALIA GONZALEZ"
+                android:textColor="@android:color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
         <TextView
                 android:text="NURSE"
